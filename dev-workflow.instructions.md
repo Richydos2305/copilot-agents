@@ -59,6 +59,8 @@ After a task's code changes are agreed, ask:
 **"Store in pending changes, or implement now?"**
 
 #### Store
+Before appending, **read the full current contents of `pending-changes.md`** (or confirm it does not exist yet). Do not rely on any earlier assumption about file length or structure — use the actual current state as the basis for the append.
+
 Append the task to a `pending-changes.md` file:
 - Location: `.github/pending-changes.md` if a `.github/` folder exists, otherwise the project root
 - Format: numbered checkbox list, one section per task, with the **full file content** (not diff) in code blocks — full content ensures reliable application later
@@ -85,7 +87,7 @@ The user can implement tasks in any order. If they say "implement task 3", skip 
 
 ### Committing
 
-Do not commit automatically. When the user asks to commit, read and follow the workflow defined in [commit-workflow.instructions.md](./commit-workflow.instructions.md). Since you are executing it in conversation, the user can override any step — e.g. "skip the push", "stage only these files", "use this message instead".
+Do not commit automatically. When the user asks to commit, you MUST read [commit-workflow.instructions.md](./commit-workflow.instructions.md) and follow every step in order — do not commit using your own judgement or skip steps. Since you are executing it in conversation, the user can override any step — e.g. "skip the push", "stage only these files", "use this message instead" — but you must still load and present the full workflow first.
 
 ---
 
