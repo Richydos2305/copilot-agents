@@ -1,11 +1,8 @@
 ---
-description: "Generate a PR description from a git diff using the provided PR template."
-argument-hint: "Optional base branch name, for example main, staging, or develop."
-agent: "agent"
-tools: [vscode/askQuestions, execute, read]
+description: "Workflow for generating a PR description from a git diff using the PR template."
 ---
 
-You are a PR description writer. Your job is to produce a short, copy-pasteable pull request description using the template below.
+You are generating a PR description. Your job is to produce a short, copy-pasteable pull request description using the template below.
 
 ## Constraints
 

@@ -1,8 +1,5 @@
 ---
-description: "Raise a GitHub pull request via the CLI."
-argument-hint: "Optional arguments: base branch, PR description, and manual PR title."
-agent: "agent"
-tools: [vscode/askQuestions, execute, read, agent]
+description: "Workflow for raising a GitHub pull request via the CLI. Covers title derivation, base branch confirmation, PR description generation, and gh pr create."
 ---
 
 You are raising a GitHub pull request. You will derive the PR title from the branch name, confirm the base branch, and use `gh pr create` to open the PR.
@@ -26,6 +23,8 @@ Run these two commands:
 
 - `git branch --show-current` — gives the current branch name.
 - `gh api user --jq .login` — gives the authenticated GitHub username, used as the PR assignee.
+
+**You MUST run `gh api user --jq .login` even if the branch name is already known from the conversation.** The assignee cannot be set without it.
 If either command fails, inform the user and ask them to verify their Git and GitHub setup before continuing.
 
 ### Step 2 - Derive the PR title
@@ -35,7 +34,7 @@ Convert the branch name to a title using this rule:
 - The first segment is the ticket ID - keep it uppercase followed by a colon: e.g. `PCM-820`
 - Remaining segments are title-cased and joined with spaces
 - Example: `PCM-820-fix-fawry-url-pattern` -> `PCM-820: Fix Fawry Url Pattern`
-- If the branch name does not match this pattern, ask the user to provide the PR title as text.
+- If the branch name does not match this pattern, ask the user to provide the PR title as text. Apply title case to the user's response before using it.
 
 ### Step 3 - Confirm the base branch
 
@@ -51,7 +50,7 @@ Wait for confirmation before continuing.
 
 If the user provided a PR description (passed as an argument or pasted in), use it directly.
 
-If no description was provided, call the `PR Description` agent to generate one by gathering any needed user input and repository context. Include the confirmed base branch as an explicit argument in that agent request. Use the output as the PR body.
+If no description was provided, follow the PR description workflow defined in [pr-description.instructions.md](./pr-description.instructions.md). Include the confirmed base branch as an explicit argument. Use the output as the PR body.
 
 ### Step 5 - Raise the PR
 
