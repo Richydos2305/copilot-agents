@@ -17,7 +17,7 @@ You are raising a GitHub pull request. You will derive the PR title from the bra
 
 Complete the steps in order. Do not continue to the next step until the current step succeeds or the user confirms it.
 
-### Step 1 - Get context (silent)
+### Step 1 - Get context
 
 Run these two commands:
 
@@ -27,14 +27,18 @@ Run these two commands:
 **You MUST run `gh api user --jq .login` even if the branch name is already known from the conversation.** The assignee cannot be set without it.
 If either command fails, inform the user and ask them to verify their Git and GitHub setup before continuing.
 
+Before proceeding to Step 2, confirm you have both values by stating them:
+> **Branch:** `<branch-name>` | **Assignee:** `<github-username>`
+
+Do not continue to Step 2 if either value is missing.
+
 ### Step 2 - Derive the PR title
 
 Convert the branch name to a title using this rule:
-- Split on `-`
-- The first segment is the ticket ID - keep it uppercase followed by a colon: e.g. `PCM-820`
-- Remaining segments are title-cased and joined with spaces
-- Example: `PCM-820-fix-fawry-url-pattern` -> `PCM-820: Fix Fawry Url Pattern`
-- If the branch name does not match this pattern, ask the user to provide the PR title as text. Apply title case to the user's response before using it.
+- Match the leading ticket-ID prefix: one or more uppercase letters, a hyphen, then one or more digits (e.g. `PCM-826`). Keep it uppercase followed by a colon.
+- Everything after the ticket ID and its trailing `-` separator is the title: split on `-`, title-case each word, join with spaces.
+- Example: `PCM-826-fix-maviance-incorrect-pin-error-map` → `PCM-826: Fix Maviance Incorrect Pin Error Map`
+- If the branch name does not start with this pattern, ask the user to provide the PR title as text. Apply title case to the user's response before using it.
 
 ### Step 3 - Confirm the base branch
 
