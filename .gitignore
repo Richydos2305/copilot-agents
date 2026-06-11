@@ -1,3 +1,6 @@
 # Runtime data files — local only, not committed
 agent-issues.md
 linkedin-log.md
+
+# Claude Code skill ports — local only, not committed
+claude-code/
