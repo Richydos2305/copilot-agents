@@ -26,7 +26,7 @@ If the file does not exist, create it with this structure before proceeding:
 ## Inputs
 
 You will be called with two pieces of information:
-1. **Agent/prompt filename** — the name of the file being complained about (e.g. `frontend-dev.agent.md`)
+1. **Agent/prompt path** — the path of the file being complained about, relative to the prompts folder (e.g. `agents/frontend-dev/agent.md`, `prompts/commit/prompt.md`)
 2. **Complaint** — what the user observed that was wrong
 
 If either is missing, ask for it before proceeding.
@@ -40,7 +40,7 @@ Read the log file at the path above. Identify the highest existing issue number 
 
 ### Step 2 — Read the affected file
 Read the agent or prompt file from:
-`/Users/richard/Library/Application Support/Code/User/prompts/<filename>`
+`/Users/richard/Library/Application Support/Code/User/prompts/<path>`
 
 ### Step 3 — Diagnose
 Analyse the complaint against the file content. Identify:
@@ -50,13 +50,13 @@ Analyse the complaint against the file content. Identify:
 Be specific. "The instructions are unclear" is not a root cause. "Phase 2 does not include an explicit hold gate before implementation — the agent can proceed without user approval" is a root cause.
 
 ### Step 4 — Check for repeats
-Scan existing Open and Resolved issues for the same filename + similar root cause. If a match exists, note the issue ID.
+Scan existing Open and Resolved issues for the same path + similar root cause. If a match exists, note the issue ID.
 
 ### Step 5 — Append to Open Issues
 Add a new entry under `## Open Issues`:
 
 ```
-### #XXX — [YYYY-MM-DD] <filename>
+### #XXX — [YYYY-MM-DD] <path>
 **Complaint**: <what the user observed>
 **Root Cause**: <specific diagnosis — what instruction/section is wrong, missing, or ambiguous>
 **Potential Repeat Of**: — (or #XXX if similar issue exists)
@@ -74,7 +74,7 @@ After logging, return a brief report to the calling agent to show the user:
 
 ```
 **Bug logged — #XXX**
-- **File**: <filename>
+- **File**: <path>
 - **Complaint**: <one-line summary>
 - **Root Cause**: <specific diagnosis>
 - **Potential Repeat**: <No / Yes — matches #XXX>

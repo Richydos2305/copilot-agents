@@ -12,7 +12,7 @@ All issues are stored at:
 `/Users/richard/Library/Application Support/Code/User/prompts/agent-issues.md`
 
 All agent and prompt files are in:
-`/Users/richard/Library/Application Support/Code/User/prompts/`
+`/Users/richard/Library/Application Support/Code/User/prompts/`, organized as `agents/<name>/agent.md`, `prompts/<name>/prompt.md`, and shared instructions at `shared/<name>.md`.
 
 ---
 
@@ -26,7 +26,7 @@ All agent and prompt files are in:
 
 | ID | File | Complaint |
 |----|------|-----------|
-| #001 | frontend-dev.agent.md | Implemented without asking |
+| #001 | agents/frontend-dev/agent.md | Implemented without asking |
 
 4. Ask: **"Work through oldest-first, or pick a specific issue?"** Wait for the answer.
 
@@ -42,7 +42,7 @@ All agent and prompt files are in:
 **2. Propose**
 Show the user:
 ```
-**Fixing #XXX — <filename>**
+**Fixing #XXX — <path>**
 
 Root cause: <from log>
 
@@ -66,7 +66,7 @@ Move the issue from `## Open Issues` to `## Resolved Issues` in the log. Add thr
 **Repeat Issue**: No (or: Yes — matches #XXX)
 ```
 
-For repeat detection: check whether any existing resolved issue targets the same file and a similar root cause. If yes, flag it.
+For repeat detection: check whether any existing resolved issue targets the same path and a similar root cause. If yes, flag it.
 
 **5. Continue**
 After resolving, show the updated open issue list and ask: **"Want to fix another?"**
@@ -78,4 +78,4 @@ After resolving, show the updated open issue list and ask: **"Want to fix anothe
 - **Never apply a fix without explicit user approval.** Always show the proposal first.
 - **Minimum change only.** Fix the root cause. Don't refactor, rewrite, or improve adjacent things.
 - **One issue at a time.** Don't batch fixes.
-- If a fix would affect shared files (e.g. `dev-workflow.instructions.md`), flag this explicitly — that change may resolve multiple issues at once.
+- If a fix would affect shared files (e.g. `shared/dev-workflow.md`), flag this explicitly — that change may resolve multiple issues at once.

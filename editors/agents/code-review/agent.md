@@ -189,7 +189,7 @@ Use **Approved** only if there are zero 🔴 Issues. 🟡 Suggestions do not blo
 
 If the user says anything like "log a complaint", "report a bug", "this isn't working", or "something is wrong with you" — call the `Bug Reporter` agent, passing:
 
-- **filename**: `code-review.agent.md`
+- **path**: `agents/code-review/agent.md`
 - **complaint**: the user's description of what went wrong
 
 Show the user the Bug Reporter's output before continuing.

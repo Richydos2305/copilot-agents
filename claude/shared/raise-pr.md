@@ -1,0 +1,71 @@
+# Raise PR Workflow
+
+Used by the `github-expert` skill. Covers title derivation, base branch confirmation, PR description generation, and `gh pr create`.
+
+You are raising a GitHub pull request. You will derive the PR title from the branch name, confirm the base branch, and use `gh pr create` to open the PR.
+
+## Constraints
+
+- Do not change repository files or git history while preparing the PR. You may still ask for and use PR metadata such as the title, body, and base branch.
+- Running gh pr create is allowed.
+- Always explicitly ask the user to confirm the base branch, regardless of whether it was inferred or provided.
+- Always check `gh` is available before proceeding. If not installed, tell the user: `brew install gh && gh auth login`.
+- If the user does not confirm the base branch or the final create command, stop and provide a short summary of what was completed.
+- If the user does not respond to a confirmation prompt, stop and wait for a reply. Do not assume confirmation.
+
+## Workflow
+
+Complete the steps in order. Do not continue to the next step until the current step succeeds or the user confirms it.
+
+### Step 1 - Get context
+
+Run these two commands:
+
+- `git branch --show-current` — gives the current branch name.
+- `gh api user --jq .login` — gives the authenticated GitHub username, used as the PR assignee.
+
+**You MUST run `gh api user --jq .login` even if the branch name is already known from the conversation.** The assignee cannot be set without it.
+If either command fails, inform the user and ask them to verify their Git and GitHub setup before continuing.
+
+Before proceeding to Step 2, confirm you have both values by stating them:
+> **Branch:** `<branch-name>` | **Assignee:** `<github-username>`
+
+Do not continue to Step 2 if either value is missing.
+
+### Step 2 - Derive the PR title
+
+Convert the branch name to a title using this rule:
+- Match the leading ticket-ID prefix: one or more uppercase letters, a hyphen, then one or more digits (e.g. `PCM-826`). Keep it uppercase followed by a colon.
+- Everything after the ticket ID and its trailing `-` separator is the title: split on `-`, title-case each word, join with spaces.
+- Example: `PCM-826-fix-maviance-incorrect-pin-error-map` → `PCM-826: Fix Maviance Incorrect Pin Error Map`
+- If the branch name does not start with this pattern, ask the user to provide the PR title as text. Apply title case to the user's response before using it.
+
+### Step 3 - Confirm the base branch
+
+If the user supplied a base branch, show it and ask for confirmation:
+> **Base branch will be set to `<branch>`. Is that correct?**
+
+If not supplied, determine the base branch by checking the default branch of the remote repository using `git remote show origin`, then ask:
+> **I will target `<inferred-branch>` as the base. Confirm, or tell me the correct branch.**
+
+Wait for confirmation before continuing.
+
+### Step 4 - Get or generate the PR body
+
+If the user provided a PR description (passed as an argument or pasted in), use it directly.
+
+If no description was provided, read `/Users/richard/.claude/shared/pr-description.md` and follow it. Include the confirmed base branch as an explicit argument. Use the output as the PR body.
+
+### Step 5 - Raise the PR
+
+Run `gh pr create` with:
+- `--title` - the derived title from Step 2
+- `--body` - the PR description from Step 4
+- `--base` - the confirmed base branch from Step 3
+- `--assignee` - the GitHub username from Step 1
+
+Show the user the exact command before running it and wait for a final **yes** confirmation.
+
+If `gh pr create` fails, inform the user of the error and suggest retrying or checking their network connection and GitHub authentication.
+
+After the PR is created, display the PR URL returned by `gh`.

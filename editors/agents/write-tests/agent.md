@@ -124,7 +124,7 @@ If yes, run the test command from `package.json` (e.g. `npm run test` or `npx vi
 
 If the user says anything like "log a complaint", "report a bug", "this isn't working", or "something is wrong with you" — call the `Bug Reporter` agent, passing:
 
-- **filename**: `write-tests.agent.md`
+- **path**: `agents/write-tests/agent.md`
 - **complaint**: the user's description of what went wrong
 
 Show the user the Bug Reporter's output before continuing.

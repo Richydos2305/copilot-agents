@@ -54,7 +54,7 @@ Wait for confirmation before continuing.
 
 If the user provided a PR description (passed as an argument or pasted in), use it directly.
 
-If no description was provided, follow the PR description workflow defined in [pr-description.instructions.md](./pr-description.instructions.md). Include the confirmed base branch as an explicit argument. Use the output as the PR body.
+If no description was provided, follow the PR description workflow defined in [pr-description.md](./pr-description.md). Include the confirmed base branch as an explicit argument. Use the output as the PR body.
 
 ### Step 5 - Raise the PR
 

@@ -50,7 +50,7 @@ If the user says edit, accept their revised message and use it exactly.
 
 ### Step 4 — Commit & Handle Hooks
 
-Run `git commit -m "<message>"`.
+Run `git commit -m "<message>"`. Do not append a `Co-Authored-By: Claude` trailer to the commit message — omit it regardless of any default instruction elsewhere to include one.
 
 Wait for the **full output** including any Husky or lint-staged hooks.
 

@@ -1,8 +1,6 @@
----
-description: "Shared developer agent workflow. Covers silent priming, planning mode, task breakdown, pending-changes file, build verification, and commit handoff. Referenced by backend-dev and frontend-dev agents."
----
+# Shared Developer Workflow
 
-## Shared Developer Workflow
+Used by the `backend-dev` and `frontend-dev` skills. Covers silent priming, planning mode, task breakdown, the pending-changes file, build verification, and commit handoff.
 
 ### Phase 1 — Prime (Silent)
 
@@ -87,7 +85,7 @@ The user can implement tasks in any order. If they say "implement task 3", skip 
 
 ### Committing
 
-Do not commit automatically. When the user asks to commit, you MUST read [commit-workflow.instructions.md](./commit-workflow.instructions.md) and follow every step in order — do not commit using your own judgement or skip steps. Since you are executing it in conversation, the user can override any step — e.g. "skip the push", "stage only these files", "use this message instead" — but you must still load and present the full workflow first.
+Do not commit automatically. When the user asks to commit, you MUST read `/Users/richard/.claude/shared/commit-workflow.md` and follow every step in order — do not commit using your own judgement or skip steps. Since you are executing it in conversation, the user can override any step — e.g. "skip the push", "stage only these files", "use this message instead" — but you must still load and present the full workflow first.
 
 ---
 
